@@ -5,4 +5,4 @@
 
 | 날짜 | 결정 | 이유 |
 |---|---|---|
-| | | |
+| 2026-07-31 | 앱 코드는 `app/` 패키지, 테스트는 `tests/` 에 위치. 의존성은 `requirements.txt`(fastapi, uvicorn, pytest, httpx)로 관리 | 최소 FastAPI 앱 구조를 단순하고 표준적으로 유지하기 위함 |
