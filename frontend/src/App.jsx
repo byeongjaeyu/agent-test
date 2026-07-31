@@ -1,32 +1,23 @@
 import { useState } from 'react'
 import './App.css'
+import { TodoProvider, useTodos } from './context/TodoContext.jsx'
 
-let nextId = 1
-
-function App() {
-  const [todos, setTodos] = useState([])
+function TodoApp() {
+  const { todos, addTodo, toggleTodo, removeTodo } = useTodos()
   const [text, setText] = useState('')
 
-  function addTodo(e) {
+  function handleSubmit(e) {
     e.preventDefault()
     const trimmed = text.trim()
     if (!trimmed) return
-    setTodos([...todos, { id: nextId++, text: trimmed, done: false }])
+    addTodo(trimmed)
     setText('')
-  }
-
-  function toggleTodo(id) {
-    setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
-  }
-
-  function removeTodo(id) {
-    setTodos(todos.filter((t) => t.id !== id))
   }
 
   return (
     <div className="app">
       <h1>Todo</h1>
-      <form onSubmit={addTodo}>
+      <form onSubmit={handleSubmit}>
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -52,6 +43,14 @@ function App() {
         ))}
       </ul>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <TodoProvider>
+      <TodoApp />
+    </TodoProvider>
   )
 }
 
